@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using ChessLogic.Figures;
 
 namespace ChessLogic;
 
@@ -49,12 +50,12 @@ public class Game
             Board[6][i] = new Pawn('b'); // Пешки на седьмой линии
         }
 
-        WhiteToMove = true;
+        WhitesTurn = true;
     }
 
     public IFigure[][] Board;
 
-    public bool WhiteToMove { get; set; }
+    public bool WhitesTurn { get; set; }
 
     public bool DoMove(string move)
     {
@@ -75,7 +76,7 @@ public class Game
             // Выполняем ход
             if (figure.PossibleMove(ref Board, moveStartCoords, moveEndCoords))
             {
-                WhiteToMove = !WhiteToMove;
+                WhitesTurn = !WhitesTurn;
                 return true;
             }
             
@@ -89,7 +90,7 @@ public class Game
         return false;
     }
 
-    private int CharToCoord(char c)
+    public int CharToCoord(char c)
     {
         if (char.IsLetter(c))
         {
@@ -219,8 +220,12 @@ public class Game
 
 
     // Метод для отображения символов фигур
-    private char GetFigureSymbol(IFigure figure)
+    public char GetFigureSymbol(IFigure figure)
     {
+        if (figure == null)
+        {
+            return '-';
+        }
         switch (figure.Type)
         {
             case FigureType.Pawn:
