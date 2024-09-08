@@ -59,6 +59,6 @@ public class GameSession
 
     private string GetBoardState()
     {
-        return BoardState.GetBoardAsString();
+        return BoardState.GetBoardAsFEN();
     }
 }

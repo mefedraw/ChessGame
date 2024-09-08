@@ -166,11 +166,11 @@ public class Game
     public string GetBoardAsFEN()
     {
         var sb = new StringBuilder();
-    
+
         for (int x = 7; x >= 0; x--) // от 8-й линии к 1-й
         {
             int emptySquares = 0;
-        
+
             for (int y = 0; y < 8; y++)
             {
                 if (Board[x][y] == null)
@@ -184,10 +184,10 @@ public class Game
                         sb.Append(emptySquares); // добавляем число пустых клеток
                         emptySquares = 0;
                     }
-                    sb.Append(GetFigureSymbol(Board[x][y])); // добавляем фигуру
+                    sb.Append(GetFigureSymbol(Board[x][y])); // добавляем символ фигуры
                 }
             }
-        
+
             if (emptySquares > 0)
             {
                 sb.Append(emptySquares); // добавляем оставшиеся пустые клетки в строке
@@ -198,24 +198,10 @@ public class Game
                 sb.Append('/'); // разделитель между строками доски
             }
         }
-    
-        // Добавление оставшейся информации для FEN строки:
-        sb.Append(" w "); // чей ход, например, всегда ход белых в этой реализации
-    
-        // Информация о доступности рокировки (пример: KQkq - все рокировки доступны)
-        sb.Append("KQkq ");
-    
-        // Эн-пассан информация. Здесь пропускаем "-", если нет возможности взять на проходе
-        sb.Append("- ");
-    
-        // Количество полуходов (для реализации правила 50 ходов)
-        sb.Append("0 ");
-    
-        // Номер полного хода
-        sb.Append("1");
-    
+
         return sb.ToString();
     }
+
 
 
 
