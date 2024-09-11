@@ -20,6 +20,7 @@ public class King : Figure
         int deltaX = Math.Abs(endX - startX);
         int deltaY = Math.Abs(endY - startY);
 
+
         // Рокировка (O-O) белых
         if (startX == 0 && startY == 4 && endX == 0 && endY == 6 && !KingDidMove) // Короткая рокировка
         {
@@ -72,7 +73,7 @@ public class King : Figure
                 }
             }
         }
-        
+
         // Рокировка (o-o) черных
         if (startX == 7 && startY == 4 && endX == 7 && endY == 6 && !KingDidMove) // Короткая рокировка
         {
@@ -97,7 +98,7 @@ public class King : Figure
                 }
             }
         }
-        
+
         // Длинная рокировка (o-o-o) черных
         if (endX == 7 && (endY == 2 || endY == 1) && startX == 7 && startY == 4 &&
             !KingDidMove) // Длинная рокировка
@@ -131,15 +132,44 @@ public class King : Figure
             // Если конечная клетка пуста или там фигура противника
             if (board[endX][endY] == null || board[endX][endY].Color != figure.Color)
             {
-                board[startX][startY] = null;
-                board[endX][endY] = figure;
-                KingDidMove = true;
-                return true;
+                // проверка то что поле на которое ходит король не находится под ударом вражеских фигур
+                if (!IsUnderAttack(board, moveEndPosition, figure.Color))
+                {
+                    board[startX][startY] = null;
+                    board[endX][endY] = figure;
+                    KingDidMove = true;
+                    return true;   
+                }
             }
         }
 
         return false; // Любое другое движение недопустимо для короля
     }
+
+    // Метод проверки шаха на указанной позиции
+    public bool IsUnderAttack(IFigure[][] board, (int x, int y) position, char kingColor)
+    {
+        for (var column = 0; column < 8; column++)
+        {
+            for (var row = 0; row < 8; row++)
+            {
+                var figure = board[column][row];
+                // Если фигура противника
+                if (figure != null && figure.Color != kingColor)
+                {
+                    // Проверяем,может ли фигура атаковать клетку
+                    if (figure.PossibleMove(ref board, (column, row), position))
+                    {
+                        figure.PossibleMove(ref board, position, (column, row));
+                        return true; // Клетка под ударом
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
 
     public bool KingDidMove { get; set; }
 
