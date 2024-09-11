@@ -15,7 +15,7 @@ server.Start(ws =>
 {
     ws.OnOpen = () => { wsConnections.Add(ws); };
 
-    ws.OnMessage = message =>
+    ws.OnMessage = async message =>
     {
         if (message.Contains("challenge"))
         {
@@ -27,7 +27,7 @@ server.Start(ws =>
             else // player2 accepts invitation by providing same ID
             {
                 games[gameId] = new GameSession(new WsChessClient(wsConnectionsQueue[gameId]), new WsChessClient(ws),
-                    new Game());
+                    new Game(), false);
                 string colorMessage = games[gameId].Player1.Color == 'w' ? "белыми" : "черными";
                 wsConnectionsQueue[gameId].Send($"LOGS: Партия {gameId} началась!" +
                                                 '\n' + "Сейчас ход белых" + '\n' +
@@ -65,7 +65,19 @@ server.Start(ws =>
                      (currentSession.Player1.Color == 'b' && !currentSessionWhitesTurn)))
                     // user can move pieces only in his turn
                 {
-                    currentSession.ApplyMove(currentMove, currentSession.Player1);
+                    if (currentSession.BotGame)
+                    {
+                        // ход против бота
+                        currentSession.ApplyMove(currentMove, currentSession.Player1);
+                        // запрос к апи чтобы сразу получить ход от бота
+                        BotEnemy bot = new BotEnemy();
+                        var bestMove = await bot.AskForBestMove(currentSession.BoardState.GetBoardAsFullFEN());
+                        currentSession.ApplyBotMove(bestMove);
+                    }
+                    else
+                    {
+                        currentSession.ApplyMove(currentMove, currentSession.Player1);
+                    }
                 }
                 else if (ws == currentSession.Player2.PlayerConnection &&
                          ((currentSession.Player2.Color == 'b' && !currentSessionWhitesTurn) ||
@@ -74,6 +86,11 @@ server.Start(ws =>
                     currentSession.ApplyMove(currentMove, currentSession.Player2);
                 }
             }
+        }
+        else if (message.Contains("bot"))
+        {
+            var gameId = message[4..];
+            games[gameId] = new GameSession(new WsChessClient(ws), new Game(), true);
         }
     };
 });

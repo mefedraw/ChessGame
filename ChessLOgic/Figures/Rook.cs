@@ -6,8 +6,8 @@ public class Rook : Figure
     {
         int startX = moveStartPosition.Item1; // Горизонтальная координата (столбец)
         int startY = moveStartPosition.Item2; // Вертикальная координата (строка)
-        int endX = moveEndPosition.Item1;     // Горизонтальная координата (столбец)
-        int endY = moveEndPosition.Item2;     // Вертикальная координата (строка)
+        int endX = moveEndPosition.Item1; // Горизонтальная координата (столбец)
+        int endY = moveEndPosition.Item2; // Вертикальная координата (строка)
 
         IFigure figure = board[startX][startY];
 
@@ -51,14 +51,16 @@ public class Rook : Figure
         {
             board[startX][startY] = null;
             board[endX][endY] = figure;
+            RookDidMove = true;
             return true;
         }
 
         return false; // Если в конечной клетке фигура того же цвета, ход невозможен
     }
-    
 
-    public Rook(char color) : base(color,FigureType.Rook)
+    public bool RookDidMove { get; set; }
+
+    public Rook(char color) : base(color, FigureType.Rook)
     {
         Type = FigureType.Rook;
     }
