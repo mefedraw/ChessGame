@@ -14,7 +14,9 @@
 
 рокировка o-o работает!
 
-challenge 14
+dotnet watch --project ChessGame2
+
+challenge 1
 bot 55
 55:e2e4
 55:g1f3

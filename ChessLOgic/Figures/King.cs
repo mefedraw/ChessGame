@@ -20,7 +20,7 @@ public class King : Figure
         int deltaX = Math.Abs(endX - startX);
         int deltaY = Math.Abs(endY - startY);
 
-        // Рокировка (O-O)
+        // Рокировка (O-O) белых
         if (startX == 0 && startY == 4 && endX == 0 && endY == 6 && !KingDidMove) // Короткая рокировка
         {
             // Проверяем, что ладья находится на позиции (0, 7), и она не двигалась
@@ -46,7 +46,7 @@ public class King : Figure
             }
         }
 
-        // Длинная рокировка (O-O-O)
+        // Длинная рокировка (O-O-O) белых
         if (endX == 0 && (endY == 2 || endY == 1) && startX == 0 && startY == 4 &&
             !KingDidMove) // Длинная рокировка
         {
@@ -72,7 +72,58 @@ public class King : Figure
                 }
             }
         }
+        
+        // Рокировка (o-o) черных
+        if (startX == 7 && startY == 4 && endX == 7 && endY == 6 && !KingDidMove) // Короткая рокировка
+        {
+            // Проверяем, что ладья находится на позиции (0, 7), и она не двигалась
+            IFigure rook = board[7][7];
 
+            // Приводим к типу Rook, чтобы получить доступ к RookDidMove
+            if (rook is Rook castedRook && !castedRook.RookDidMove)
+            {
+                // Проверяем, что клетки между королем и ладьей свободны
+                if (board[7][5] == null && board[7][6] == null)
+                {
+                    // Делаем рокировку: перемещаем короля и ладью
+                    board[7][4] = null; // Король покидает исходную позицию
+                    board[7][6] = figure; // Король перемещается на новую позицию
+                    board[7][7] = null; // Ладья покидает исходную позицию
+                    board[7][5] = castedRook; // Ладья становится на новое место
+
+                    KingDidMove = true; // Обновляем флаг движения короля
+                    castedRook.RookDidMove = true; // Обновляем флаг движения ладьи
+                    return true;
+                }
+            }
+        }
+        
+        // Длинная рокировка (o-o-o) черных
+        if (endX == 7 && (endY == 2 || endY == 1) && startX == 7 && startY == 4 &&
+            !KingDidMove) // Длинная рокировка
+        {
+            // Проверяем, что ладья находится на позиции (0, 0), и она не двигалась
+            IFigure rook = board[7][0];
+
+            // Приводим к типу Rook, чтобы получить доступ к RookDidMove
+            if (rook is Rook castedRook && !castedRook.RookDidMove)
+            {
+                // Проверяем, что клетки между королем и ладьей свободны
+                if (board[7][1] == null && board[7][2] == null && board[7][3] == null)
+                {
+                    // Делаем рокировку: перемещаем короля и ладью
+                    board[7][4] = null; // Король покидает исходную позицию
+                    board[7][2] = figure; // Король перемещается на новую позицию
+                    board[7][0] = null; // Ладья покидает исходную позицию
+                    board[7][3] = castedRook; // Ладья становится на новое место
+
+                    KingDidMove = true; // Обновляем флаг движения короля
+                    castedRook.RookDidMove = true; // Обновляем флаг движения ладьи
+
+                    return true;
+                }
+            }
+        }
 
         if ((deltaX <= 1 && deltaY <= 1) &&
             !(deltaX == 0 && deltaY == 0)) // Движение на 1 клетку по горизонтали, вертикали или диагонали
