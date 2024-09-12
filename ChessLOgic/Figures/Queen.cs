@@ -92,7 +92,7 @@ public override bool IsUnderAttack(IFigure[][] board, (int x, int y) position, c
     throw new NotImplementedException();
 }
 
-public bool IsUnderAttack(IFigure[][] board, char kingColor)
+public override bool IsUnderAttack(IFigure[][] board, char kingColor)
 {
     (int x, int y) kingPosition = (0, 0);
 

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ChessLOgic")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+afbc554d390f9fcd03417f75727a282e954154c1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cc4da817f1a4fc8cd117656fa59637d51f61d2f3")]
 [assembly: System.Reflection.AssemblyProductAttribute("ChessLOgic")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ChessLOgic")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

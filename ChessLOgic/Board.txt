@@ -12,7 +12,9 @@
 
 Реализована игра по сети, в том числе несколько одновременных сессий!
 
+рокировка o-o работает!
 
+<<<<<<< HEAD
 challenge 2234
 2234:e2e4
 2234:e7e5
@@ -21,3 +23,18 @@ challenge 2234
 221:f1b5
 221:h7h6
 resign 221
+=======
+dotnet watch --project ChessGame2
+
+challenge 1
+bot 55
+55:e2e4
+55:g1f3
+55:d2d3
+55:b1c3
+resign 24
+
+13:d2d3
+13:c1e3
+13:b1c3
+>>>>>>> 32c2939c2c40b0f22d8dc42ff8ab651aa87f23c3
