@@ -44,6 +44,12 @@ public override bool PossibleMove(ref IFigure?[][] board, (int, int) moveStartPo
         {
             board[startX][startY] = null;
             board[endX][endY] = figure;
+            if (IsUnderAttack(board, figure.Color))
+            {
+                board[startX][startY] = figure;
+                board[endX][endY] = null;
+                return false;
+            }
             return true;
         }
     }
@@ -80,6 +86,12 @@ public override bool PossibleMove(ref IFigure?[][] board, (int, int) moveStartPo
         {
             board[startX][startY] = null;
             board[endX][endY] = figure;
+            if (IsUnderAttack(board, figure.Color))
+            {
+                board[startX][startY] = figure;
+                board[endX][endY] = null;
+                return false;
+            }
             return true;
         }
     }

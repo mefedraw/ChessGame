@@ -51,6 +51,12 @@ public class Rook : Figure
         {
             board[startX][startY] = null;
             board[endX][endY] = figure;
+            if (IsUnderAttack(board, figure.Color))
+            {
+                board[startX][startY] = figure;
+                board[endX][endY] = null;
+                return false;
+            }
             RookDidMove = true;
             return true;
         }
