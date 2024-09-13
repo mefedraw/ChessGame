@@ -104,10 +104,8 @@ public override bool IsUnderAttack(IFigure?[][] board, (int x, int y) position, 
     throw new NotImplementedException();
 }
 
-public override bool IsUnderAttack(IFigure?[][] board, char kingColor)
+public override (int, int) FindKing(IFigure?[][] board, char kingColor)
 {
-    (int x, int y) kingPosition = (0, 0);
-
     for (var column = 0; column < 8; column++) // находим союзного короля
     {
         for (var row = 0; row < 8; row++)
@@ -116,13 +114,18 @@ public override bool IsUnderAttack(IFigure?[][] board, char kingColor)
             {
                 if (board[column][row].Type == FigureType.King && board[column][row].Color == kingColor)
                 {
-                    kingPosition = (column, row);
-                    column = 8; 
-                    break;
+                    return (column, row);
                 }
             }
         }
     }
+
+    return (0, 0);
+}
+
+public override bool IsUnderAttack(IFigure?[][] board, char kingColor)
+{
+    (int x, int y) kingPosition = FindKing(board, kingColor);
 
     for (var column = 0; column < 8; column++)
     {
