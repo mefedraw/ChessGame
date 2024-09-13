@@ -23,7 +23,7 @@ public class Rook : Figure
         }
 
         // Проверка пути: должен быть свободен весь путь от старта до конца (без препятствий)
-        if (startX == endX) // Вертикальное движение
+        if (startX == endX) // Вертикальное движение  
         {
             int step = startY < endY ? 1 : -1; // Определяем направление движения
             for (int y = startY + step; y != endY; y += step)

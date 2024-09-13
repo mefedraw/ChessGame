@@ -34,7 +34,7 @@ public class GameSession
 
         Player1.Color = 'w';
         Player2.Color = 'b';
-        ;
+        
     }
 
     public WsChessClient Player1 { get; set; }
@@ -64,14 +64,14 @@ public class GameSession
 
                  Player1.PlayerConnection.Send($"LOGS:Сейчас ход {turnString}" +  '\n' +
                                                $"Вы играете {colorMessage} фигурами");
-                
-                 colorMessage = Player2.Color == 'w' ? "белыми" : "черными";
-                 Player2.PlayerConnection.Send($"LOGS:Сейчас ход {turnString}" + '\n' +
-                                               $"Вы играете {colorMessage} фигурами");
 
                 Player1.PlayerConnection.Send($"FEN:{GetBoardState()}:{Player1.Color}");
                 if (!BotGame)
                 {
+                    colorMessage = Player2.Color == 'w' ? "белыми" : "черными";
+                    Player2.PlayerConnection.Send($"LOGS:Сейчас ход {turnString}" + '\n' +
+                                                  $"Вы играете {colorMessage} фигурами");
+                    
                     Player2.PlayerConnection.Send($"FEN:{GetBoardState()}:{Player2.Color}");
                 }
             }
@@ -87,17 +87,21 @@ public class GameSession
             BoardState.GetFigureSymbol(
                 BoardState.Board[num][letter]));
 
+        if (!whitePieceMove) // работает только когда игра игрок играет за белых
+        {
+            var successfulMove = BoardState.DoMove(move);
+            if (successfulMove)
+            {
+                Player1.PlayerConnection.Send($"FEN:{GetBoardState()}:{Player1.Color}");
+            }
+
+        }
         // we are checking the color of piece on specified cell (upper case means white)
 
         // if ((whitePieceMove && Player1.Color == 'b') || (!whitePieceMove && Player1.Color == 'w'))
         // ход не игрока -> ход бота
         //  {
-        var successfulMove = BoardState.DoMove(move);
-        if (successfulMove)
-        {
-            Player1.PlayerConnection.Send($"FEN:{GetBoardState()}:{Player1.Color}");
-            //  }
-        }
+        //  }
     }
 
     private string GetBoardState()

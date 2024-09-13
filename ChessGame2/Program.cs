@@ -68,7 +68,12 @@ server.Start(ws =>
                     if (currentSession.BotGame)
                     {
                         // ход против бота
+                        var boardStateBeforePlayerMove = currentSession.BoardState.GetBoardAsFEN();
                         currentSession.ApplyMove(currentMove, currentSession.Player1);
+                        if (currentSession.BoardState.GetBoardAsFEN() != boardStateBeforePlayerMove)
+                        {
+                        }
+
                         // запрос к апи чтобы сразу получить ход от бота
                         BotEnemy bot = new BotEnemy();
                         var bestMove = await bot.AskForBestMove(currentSession.BoardState.GetBoardAsFullFEN());
