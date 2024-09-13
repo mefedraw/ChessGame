@@ -51,25 +51,6 @@ public class Knight : Figure
     {
         throw new NotImplementedException();
     }
-    
-    public override (int, int) FindKing(IFigure?[][] board, char kingColor)
-    {
-        for (var column = 0; column < 8; column++) // находим союзного короля
-        {
-            for (var row = 0; row < 8; row++)
-            {
-                if (board[column][row] != null)
-                {
-                    if (board[column][row].Type == FigureType.King && board[column][row].Color == kingColor)
-                    {
-                        return (column, row);
-                    }
-                }
-            }
-        }
-
-        return (0, 0);
-    }
 
     public override bool IsUnderAttack(IFigure?[][] board, char kingColor)
     {
