@@ -91,6 +91,7 @@ server.Start(ws =>
         {
             var gameId = message[4..];
             games[gameId] = new GameSession(new WsChessClient(ws), new Game(), true);
+            ws.Send("LOGS:игра с ботом началась!");
         }
     };
 });

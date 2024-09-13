@@ -59,7 +59,7 @@ public class Game
         Black_O_O_O = true;
     }
 
-    public IFigure[][] Board;
+    public IFigure?[][] Board;
 
     public bool WhitesTurn { get; set; }
 
@@ -77,14 +77,14 @@ public class Game
             (int, int) moveEndCoords = (CharToCoord(move[3]), CharToCoord(move[2]));
 
             // Проверяем, есть ли фигура на начальной позиции
-            IFigure figure = Board[moveStartCoords.Item1][moveStartCoords.Item2];
+            IFigure? figure = Board[moveStartCoords.Item1][moveStartCoords.Item2];
             if (figure == null)
             {
                 return false;
             }
 
             // Выполняем ход
-            IFigure tempfigure = Board[moveStartCoords.Item1][moveStartCoords.Item2];
+            IFigure? tempfigure = Board[moveStartCoords.Item1][moveStartCoords.Item2];
             if (figure.PossibleMove(ref Board, moveStartCoords, moveEndCoords))
             {
                 if (tempfigure.Type == FigureType.King)
@@ -303,7 +303,7 @@ public string GetBoardAsFullFEN()
 
 
     // Метод для отображения символов фигур
-    public char GetFigureSymbol(IFigure figure)
+    public char GetFigureSymbol(IFigure? figure)
     {
         if (figure == null)
         {

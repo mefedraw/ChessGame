@@ -2,13 +2,13 @@
 
 public class Pawn : Figure
 {
-    public override bool PossibleMove(ref IFigure[][] board, (int, int) moveStartPosition, (int, int) moveEndPosition)
+    public override bool PossibleMove(ref IFigure?[][] board, (int, int) moveStartPosition, (int, int) moveEndPosition)
     {
         int startX = moveStartPosition.Item1;
         int startY = moveStartPosition.Item2;
         int endX = moveEndPosition.Item1;
         int endY = moveEndPosition.Item2;
-        IFigure figure = board[startX][startY];
+        IFigure? figure = board[startX][startY];
         if (figure == null || figure.Type != FigureType.Pawn)
         {
             return false; // Если на начальной позиции нет фигуры или это не пешка
@@ -34,7 +34,7 @@ public class Pawn : Figure
         // Ход вперед на две клетки, если пешка на своей начальной позиции
         bool isStartingPosition = (figure.Color == 'w' && startX == 1) || (figure.Color == 'b' && startX == 6);
         if (isStartingPosition && endX == startX + 2 * direction && (endY == startY) && (board[endX][endY] == null) &&
-            (board[startY][startX + direction] == null))
+            (board[startX + direction][startY] == null))
         {
             board[startX][startY] = null;
             board[endX][endY] = figure;
@@ -68,12 +68,12 @@ public class Pawn : Figure
         return false; // Все другие ходы недопустимы для пешки
     }
 
-    public override bool IsUnderAttack(IFigure[][] board, (int x, int y) position, char kingColor)
+    public override bool IsUnderAttack(IFigure?[][] board, (int x, int y) position, char kingColor)
     {
         throw new NotImplementedException();
     }
 
-    public override bool IsUnderAttack(IFigure[][] board, char kingColor)
+    public override bool IsUnderAttack(IFigure?[][] board, char kingColor)
     {
         (int x, int y) kingPosition = (0, 0);
 
@@ -86,7 +86,7 @@ public class Pawn : Figure
                     if (board[column][row].Type == FigureType.King && board[column][row].Color == kingColor)
                     {
                         kingPosition = (column, row);
-                        column = 8; 
+                        column = 8;
                         break;
                     }
                 }

@@ -2,14 +2,14 @@
 
 public class King : Figure
 {
-    public override bool PossibleMove(ref IFigure[][] board, (int, int) moveStartPosition, (int, int) moveEndPosition)
+    public override bool PossibleMove(ref IFigure?[][] board, (int, int) moveStartPosition, (int, int) moveEndPosition)
     {
         int startX = moveStartPosition.Item1; // Горизонтальная координата (столбец)
         int startY = moveStartPosition.Item2; // Вертикальная координата (строка)
         int endX = moveEndPosition.Item1; // Горизонтальная координата (столбец)
         int endY = moveEndPosition.Item2; // Вертикальная координата (строка)
 
-        IFigure figure = board[startX][startY];
+        IFigure? figure = board[startX][startY];
 
         if (figure == null || figure.Type != FigureType.King)
         {
@@ -25,7 +25,7 @@ public class King : Figure
         if (startX == 0 && startY == 4 && endX == 0 && endY == 6 && !KingDidMove) // Короткая рокировка
         {
             // Проверяем, что ладья находится на позиции (0, 7), и она не двигалась
-            IFigure rook = board[0][7];
+            IFigure? rook = board[0][7];
 
             // Приводим к типу Rook, чтобы получить доступ к RookDidMove
             if (rook is Rook castedRook && !castedRook.RookDidMove)
@@ -52,7 +52,7 @@ public class King : Figure
             !KingDidMove) // Длинная рокировка
         {
             // Проверяем, что ладья находится на позиции (0, 0), и она не двигалась
-            IFigure rook = board[0][0];
+            IFigure? rook = board[0][0];
 
             // Приводим к типу Rook, чтобы получить доступ к RookDidMove
             if (rook is Rook castedRook && !castedRook.RookDidMove)
@@ -78,7 +78,7 @@ public class King : Figure
         if (startX == 7 && startY == 4 && endX == 7 && endY == 6 && !KingDidMove) // Короткая рокировка
         {
             // Проверяем, что ладья находится на позиции (0, 7), и она не двигалась
-            IFigure rook = board[7][7];
+            IFigure? rook = board[7][7];
             // Приводим к типу Rook, чтобы получить доступ к RookDidMove
             if (rook is Rook castedRook && !castedRook.RookDidMove)
             {
@@ -103,7 +103,7 @@ public class King : Figure
             !KingDidMove) // Длинная рокировка
         {
             // Проверяем, что ладья находится на позиции (0, 0), и она не двигалась
-            IFigure rook = board[7][0];
+            IFigure? rook = board[7][0];
 
             // Приводим к типу Rook, чтобы получить доступ к RookDidMove
             if (rook is Rook castedRook && !castedRook.RookDidMove)
@@ -146,7 +146,7 @@ public class King : Figure
     }
 
     // Метод проверки шаха на указанной позиции
-    public override bool IsUnderAttack(IFigure[][] board, (int x, int y) position, char kingColor)
+    public override bool IsUnderAttack(IFigure?[][] board, (int x, int y) position, char kingColor)
     {
         for (var column = 0; column < 8; column++)
         {
@@ -169,7 +169,7 @@ public class King : Figure
         return false;
     }
 
-    public override bool IsUnderAttack(IFigure[][] board, char kingColor)
+    public override bool IsUnderAttack(IFigure?[][] board, char kingColor)
     {
         throw new NotImplementedException();
     }

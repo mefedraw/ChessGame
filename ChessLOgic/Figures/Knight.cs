@@ -3,14 +3,14 @@
 public class Knight : Figure
 {
 
-    public override bool PossibleMove(ref IFigure[][] board, (int, int) moveStartPosition, (int, int) moveEndPosition)
+    public override bool PossibleMove(ref IFigure?[][] board, (int, int) moveStartPosition, (int, int) moveEndPosition)
     {
         int startX = moveStartPosition.Item1; // Горизонтальная координата (столбец)
         int startY = moveStartPosition.Item2; // Вертикальная координата (строка)
         int endX = moveEndPosition.Item1;     // Горизонтальная координата (столбец)
         int endY = moveEndPosition.Item2;     // Вертикальная координата (строка)
 
-        IFigure figure = board[startX][startY];
+        IFigure? figure = board[startX][startY];
 
         if (figure == null || figure.Type != FigureType.Knight)
         {
@@ -47,12 +47,12 @@ public class Knight : Figure
         return false; // Если ни одно из возможных движений коня не подходит
     }
 
-    public override bool IsUnderAttack(IFigure[][] board, (int x, int y) position, char kingColor)
+    public override bool IsUnderAttack(IFigure?[][] board, (int x, int y) position, char kingColor)
     {
         throw new NotImplementedException();
     }
 
-    public override bool IsUnderAttack(IFigure[][] board, char kingColor)
+    public override bool IsUnderAttack(IFigure?[][] board, char kingColor)
     {
         (int x, int y) kingPosition = (0, 0);
 

@@ -62,12 +62,12 @@ public class GameSession
 
                 string turnString = BoardState.WhitesTurn ? "белых" : "черных";
 
-                // Player1.PlayerConnection.Send($"Сейчас ход {turnString}" + '\n' + GetBoardState() + '\n' +
-                //                               $"Вы играете {colorMessage} фигурами");
-                //
-                // colorMessage = Player2.Color == 'w' ? "белыми" : "черными";
-                // Player2.PlayerConnection.Send($"Сейчас ход {turnString}" + '\n' + GetBoardState() + '\n' +
-                //                               $"Вы играете {colorMessage} фигурами");
+                 Player1.PlayerConnection.Send($"LOGS:Сейчас ход {turnString}" +  '\n' +
+                                               $"Вы играете {colorMessage} фигурами");
+                
+                 colorMessage = Player2.Color == 'w' ? "белыми" : "черными";
+                 Player2.PlayerConnection.Send($"LOGS:Сейчас ход {turnString}" + '\n' +
+                                               $"Вы играете {colorMessage} фигурами");
 
                 Player1.PlayerConnection.Send($"FEN:{GetBoardState()}:{Player1.Color}");
                 if (!BotGame)
@@ -76,7 +76,7 @@ public class GameSession
                 }
             }
         }
-    }
+    } 
 
     public void ApplyBotMove(string move) // игрок всегда player1
     {
