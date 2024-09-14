@@ -11,6 +11,7 @@ public abstract class Figure : IFigure
     public char Color { get; private set; }
     public FigureType Type { get; protected set; }
     public abstract bool PossibleMove( ref IFigure?[][] board,(int,int) moveStartPosition, (int,int) moveEndPosition);
+    
     public virtual bool KingIsUnderAttack(IFigure?[][] board, (int x, int y) position, char kingColor)
     {
         for (var column = 0; column < 8; column++)
@@ -33,6 +34,7 @@ public abstract class Figure : IFigure
 
         return false;
     }
+    
     public virtual bool KingIsUnderAttack(IFigure?[][] board, char pieceColor)
     {
         (int x, int y) kingPosition = FindKing(board, pieceColor);
@@ -55,6 +57,34 @@ public abstract class Figure : IFigure
                             board[kingPosition.x][kingPosition.y] = tempPiece;
                         }
 
+                        return true; // Клетка под ударом
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+    
+    public virtual bool SquareIsUnderAttack(ref IFigure?[][] board, (int, int) square, char pieceColor)
+    {
+        for (var column = 0; column < 8; column++)
+        {
+            for (var row = 0; row < 8; row++)
+            {
+                var figure = board[column][row];
+                // Если фигура противника
+                if (figure != null && figure.Color != pieceColor)
+                {
+                    // Проверяем, может ли фигура атаковать клетку
+                    var tempFigure = board[square.Item1][square.Item2];
+                    if (figure.PossibleMove(ref board, (column, row), square))
+                    {
+                        figure.PossibleMove(ref board, square, (column, row));
+                        if (tempFigure != null)
+                        {
+                            board[square.Item1][square.Item2] = tempFigure;
+                        }
                         return true; // Клетка под ударом
                     }
                 }

@@ -15,14 +15,26 @@ public class GameSession
         var random = new Random();
         if (random.Next(2) == 0)
         {
-            Player1.Color = 'w'; // White for Player1
-            Player2.Color = 'b'; // Black for Player2
+            Player1.Color = 'w';
+            Player2.Color = 'b';
         }
         else
         {
-            Player1.Color = 'b'; // Black for Player1
-            Player2.Color = 'w'; // White for Player2
+            Player1.Color = 'b';
+            Player2.Color = 'w';
         }
+    }
+
+    public GameSession(WsChessClient player1, WsChessClient player2, Game boardState)
+    {
+        // для тестов 
+        Player1 = player1;
+        Player2 = player2;
+        BoardState = boardState;
+        BotGame = false;
+
+        Player1.Color = 'w';
+        Player2.Color = 'b';
     }
 
     public GameSession(WsChessClient player1, Game boardState, bool botGame)
@@ -34,7 +46,6 @@ public class GameSession
 
         Player1.Color = 'w';
         Player2.Color = 'b';
-        
     }
 
     public WsChessClient Player1 { get; set; }
@@ -62,8 +73,8 @@ public class GameSession
 
                 string turnString = BoardState.WhitesTurn ? "белых" : "черных";
 
-                 Player1.PlayerConnection.Send($"LOGS:Сейчас ход {turnString}" +  '\n' +
-                                               $"Вы играете {colorMessage} фигурами");
+                Player1.PlayerConnection.Send($"LOGS:Сейчас ход {turnString}" + '\n' +
+                                              $"Вы играете {colorMessage} фигурами");
 
                 Player1.PlayerConnection.Send($"FEN:{GetBoardState()}:{Player1.Color}");
                 if (!BotGame)
@@ -71,12 +82,12 @@ public class GameSession
                     colorMessage = Player2.Color == 'w' ? "белыми" : "черными";
                     Player2.PlayerConnection.Send($"LOGS:Сейчас ход {turnString}" + '\n' +
                                                   $"Вы играете {colorMessage} фигурами");
-                    
+
                     Player2.PlayerConnection.Send($"FEN:{GetBoardState()}:{Player2.Color}");
                 }
             }
         }
-    } 
+    }
 
     public void ApplyBotMove(string move) // игрок всегда player1
     {
@@ -87,24 +98,14 @@ public class GameSession
             BoardState.GetFigureSymbol(
                 BoardState.Board[num][letter]));
 
-        if (!whitePieceMove) // работает только когда игра игрок играет за белых
-        {
-            var successfulMove = BoardState.DoMove(move);
-            if (successfulMove)
-            {
-                Player1.PlayerConnection.Send($"FEN:{GetBoardState()}:{Player1.Color}");
-            }
-
+        var successfulMove = BoardState.DoMove(move);
+        if (successfulMove)
+        { 
+            Player1.PlayerConnection.Send($"FEN:{GetBoardState()}:{Player1.Color}");
         }
-        // we are checking the color of piece on specified cell (upper case means white)
-
-        // if ((whitePieceMove && Player1.Color == 'b') || (!whitePieceMove && Player1.Color == 'w'))
-        // ход не игрока -> ход бота
-        //  {
-        //  }
     }
 
-    private string GetBoardState()
+    private string GetBoardState() 
     {
         return BoardState.GetBoardAsFEN();
     }
