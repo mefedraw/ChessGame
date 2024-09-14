@@ -132,7 +132,7 @@ public class King : Figure
             if (board[endX][endY] == null || board[endX][endY].Color != figure.Color)
             {
                 // проверка то что поле на которое ходит король не находится под ударом вражеских фигур
-                if (!IsUnderAttack(board, moveEndPosition, figure.Color))
+                if (!KingIsUnderAttack(board, moveEndPosition, figure.Color))
                 {
                     board[startX][startY] = null;
                     board[endX][endY] = figure;
@@ -163,36 +163,6 @@ public class King : Figure
 
         return (0, 0);
     }
-
-    // Метод проверки шаха на указанной позиции
-    public override bool IsUnderAttack(IFigure?[][] board, (int x, int y) position, char kingColor)
-    {
-        for (var column = 0; column < 8; column++)
-        {
-            for (var row = 0; row < 8; row++)
-            {
-                var figure = board[column][row];
-                // Если фигура противника
-                if (figure != null && figure.Color != kingColor)
-                {
-                    // Проверяем, может ли фигура атаковать клетку
-                    if (figure.PossibleMove(ref board, (column, row), position))
-                    {
-                        figure.PossibleMove(ref board, position, (column, row));
-                        return true; // Клетка под ударом
-                    }
-                }
-            }
-        }
-
-        return false;
-    }
-
-    public override bool IsUnderAttack(IFigure?[][] board, char kingColor)
-    {
-        throw new NotImplementedException();
-    }
-
 
     public bool KingDidMove { get; set; }
     

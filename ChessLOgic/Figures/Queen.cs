@@ -20,7 +20,7 @@ public override bool PossibleMove(ref IFigure?[][] board, (int, int) moveStartPo
     int deltaX = Math.Abs(endX - startX);
     int deltaY = Math.Abs(endY - startY);
 
-    // Проверка: если ход по диагонали
+    // Проверка: если ход по диагонали 
     if (deltaX == deltaY)
     {
         // Логика для движения по диагонали (как у слона)
@@ -44,7 +44,7 @@ public override bool PossibleMove(ref IFigure?[][] board, (int, int) moveStartPo
         {
             board[startX][startY] = null;
             board[endX][endY] = figure;
-            if (IsUnderAttack(board, figure.Color))
+            if (KingIsUnderAttack(board, figure.Color))
             {
                 board[startX][startY] = figure;
                 board[endX][endY] = null;
@@ -86,7 +86,7 @@ public override bool PossibleMove(ref IFigure?[][] board, (int, int) moveStartPo
         {
             board[startX][startY] = null;
             board[endX][endY] = figure;
-            if (IsUnderAttack(board, figure.Color))
+            if (KingIsUnderAttack(board, figure.Color))
             {
                 board[startX][startY] = figure;
                 board[endX][endY] = null;
@@ -99,36 +99,11 @@ public override bool PossibleMove(ref IFigure?[][] board, (int, int) moveStartPo
     return false; // Все другие ходы недопустимы для ферзя
 }
 
-public override bool IsUnderAttack(IFigure?[][] board, (int x, int y) position, char kingColor)
+public override bool KingIsUnderAttack(IFigure?[][] board, (int x, int y) position, char kingColor)
 {
     throw new NotImplementedException();
 }
 
-public override bool IsUnderAttack(IFigure?[][] board, char kingColor)
-{
-    (int x, int y) kingPosition = FindKing(board, kingColor);
-
-    for (var column = 0; column < 8; column++)
-    {
-        for (var row = 0; row < 8; row++)
-        {
-            var figure = board[column][row];
-            // Если фигура противника
-            if (figure != null && figure.Color != kingColor)
-            {
-                // Проверяем, может ли фигура атаковать клетку
-                if (figure.PossibleMove(ref board, (column, row), kingPosition))
-                {
-                    figure.PossibleMove(ref board, kingPosition, (column, row));
-                    board[kingPosition.x][kingPosition.y] = new King(kingColor);
-                    return true; // Клетка под ударом
-                }
-            }
-        }
-    }
-
-    return false;
-}
 
 public Queen(char color) : base(color, FigureType.Queen)
 {
