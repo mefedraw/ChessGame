@@ -57,6 +57,7 @@ public class Game
         White_O_O_O = true;
         Black_O_O = true;
         Black_O_O_O = true;
+        Checkmate = '-';
     }
 
     public IFigure?[][] Board;
@@ -67,6 +68,8 @@ public class Game
     public bool White_O_O_O { get; set; }
     public bool Black_O_O { get; set; }
     public bool Black_O_O_O { get; set; }
+    
+    public char Checkmate { get; set; }
 
     public bool DoMove(string move)
     {
@@ -77,7 +80,7 @@ public class Game
             (int, int) moveEndCoords = (CharToCoord(move[3]), CharToCoord(move[2]));
 
             // Проверяем, есть ли фигура на начальной позиции
-            IFigure? figure = Board[moveStartCoords.Item1][moveStartCoords.Item2];
+            var figure = Board[moveStartCoords.Item1][moveStartCoords.Item2];
             if (figure == null)
             {
                 return false;
@@ -87,6 +90,13 @@ public class Game
             IFigure? tempfigure = Board[moveStartCoords.Item1][moveStartCoords.Item2];
             if (figure.PossibleMove(ref Board, moveStartCoords, moveEndCoords))
             {
+                if (Board[moveStartCoords.Item1][moveStartCoords.Item2]
+                    .IsCheckmate(ref Board, figure.Color == 'w' ? 'b' : 'w'))
+                {
+                    Checkmate = figure.Color == 'w' ? 'b' : 'w';
+                }
+                
+                
                 if (tempfigure.Type == FigureType.King)
                 {
                     if (tempfigure.Color == 'w')
@@ -101,9 +111,11 @@ public class Game
                     }
                 }else if (tempfigure.Type == FigureType.Rook)
                 {
-                    // !!!!!!!!!!!!!!!!!!!!!!!! доделать логику рокировки
+                    // todo: доделать логику рокировки
                 }
-
+                
+                
+                
                 WhitesTurn = !WhitesTurn;
                 return true;
             }
@@ -131,62 +143,6 @@ public class Game
         }
 
         throw new ArgumentException("Некорректный символ для шахматных координат");
-    }
-
-    public void PrintBoardToConsole()
-    {
-        Console.WriteLine("  a b c d e f g h"); // Верхняя строка с буквами для колонок
-
-        for (int x = 7; x >= 0; x--) // Начинаем с 7, чтобы выводить сверху вниз
-        {
-            Console.Write($"{x + 1} "); // Печатаем цифру для строки
-
-            for (int y = 0; y < 8; y++)
-            {
-                if (Board[x][y] == null)
-                {
-                    Console.Write("- ");
-                }
-                else
-                {
-                    Console.Write($"{GetFigureSymbol(Board[x][y])} ");
-                }
-            }
-
-            Console.WriteLine($"{x + 1}"); // Печатаем цифру для строки с правой стороны
-        }
-
-        Console.WriteLine("  a b c d e f g h"); // Нижняя строка с буквами для колонок
-    }
-
-    public string GetBoardAsString()
-    {
-        var sb = new StringBuilder();
-
-        sb.AppendLine("  a b c d e f g h"); // Верхняя строка с буквами для колонок
-
-        for (int x = 7; x >= 0; x--) // Начинаем с 7, чтобы выводить сверху вниз
-        {
-            sb.Append($"{x + 1} "); // Печатаем цифру для строки
-
-            for (int y = 0; y < 8; y++)
-            {
-                if (Board[x][y] == null)
-                {
-                    sb.Append("- ");
-                }
-                else
-                {
-                    sb.Append($"{GetFigureSymbol(Board[x][y])} ");
-                }
-            }
-
-            sb.AppendLine($"{x + 1}"); // Печатаем цифру для строки с правой стороны
-        }
-
-        sb.AppendLine("  a b c d e f g h"); // Нижняя строка с буквами для колонок
-
-        return sb.ToString();
     }
 
     public string GetBoardAsFEN()

@@ -47,6 +47,36 @@ public class Knight : Figure
         return false; // Если ни одно из возможных движений коня не подходит
     }
     
+    public override List<(int, int)> GetPossibleMoves(ref IFigure?[][] board, (int, int) currentPos)
+    {
+        List<(int, int)> possibleMoves = new List<(int, int)>();
+        int x = currentPos.Item1;
+        int y = currentPos.Item2;
+
+        // Варианты хода коня (все возможные "Г"-образные ходы)
+        int[][] moves = {
+            new[] {x + 2, y + 1}, new[] {x + 2, y - 1},
+            new[] {x - 2, y + 1}, new[] {x - 2, y - 1},
+            new[] {x + 1, y + 2}, new[] {x + 1, y - 2},
+            new[] {x - 1, y + 2}, new[] {x - 1, y - 2}
+        };
+
+        foreach (var move in moves)
+        {
+            if (IsInBounds(move[0], move[1]) && (board[move[0]][move[1]] == null || board[move[0]][move[1]].Color != this.Color))
+            {
+                possibleMoves.Add((move[0], move[1]));
+            }
+        }
+
+        return possibleMoves;
+    }
+    
+    private bool IsInBounds(int x, int y)
+    {
+        return x >= 0 && x < 8 && y >= 0 && y < 8;
+    }
+    
     public Knight(char color): base(color,FigureType.Knight)
     {
         Type = FigureType.Knight;

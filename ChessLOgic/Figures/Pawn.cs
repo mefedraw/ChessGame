@@ -67,6 +67,37 @@ public class Pawn : Figure
 
         return false; // Все другие ходы недопустимы для пешки
     }
+    
+    public override List<(int, int)> GetPossibleMoves(ref IFigure?[][] board, (int, int) currentPos)
+    {
+        List<(int, int)> possibleMoves = new List<(int, int)>();
+        int x = currentPos.Item1;
+        int y = currentPos.Item2;
+        int direction = this.Color == 'w' ? 1 : -1; // Белые двигаются вверх, черные вниз
+
+        // Ход вперед на одну клетку
+        if (IsInBounds(x + direction, y) && board[x + direction][y] == null)
+        {
+            possibleMoves.Add((x + direction, y));
+        }
+
+        // Атака по диагонали
+        if (IsInBounds(x + direction, y + 1) && board[x + direction][y + 1] != null && board[x + direction][y + 1].Color != this.Color)
+        {
+            possibleMoves.Add((x + direction, y + 1));
+        }
+        if (IsInBounds(x + direction, y - 1) && board[x + direction][y - 1] != null && board[x + direction][y - 1].Color != this.Color)
+        {
+            possibleMoves.Add((x + direction, y - 1));
+        }
+
+        return possibleMoves;
+    }
+    
+    private bool IsInBounds(int x, int y)
+    {
+        return x >= 0 && x < 8 && y >= 0 && y < 8;
+    }
 
     public Pawn(char color) : base(color, FigureType.Pawn)
     {

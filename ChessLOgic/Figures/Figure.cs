@@ -66,6 +66,9 @@ public abstract class Figure : IFigure
         return false;
     }
     
+
+    public abstract List<(int, int)> GetPossibleMoves(ref IFigure?[][] board, (int, int) currentPos);
+    
     public virtual bool SquareIsUnderAttack(ref IFigure?[][] board, (int, int) square, char pieceColor)
     {
         for (var column = 0; column < 8; column++)
@@ -94,6 +97,57 @@ public abstract class Figure : IFigure
         return false;
     }
     
+    public bool IsCheckmate(ref IFigure?[][] board, char color)
+    {
+        // Шаг 1: Найти короля данного цвета
+        (int kingX, int kingY) KingPos = FindKing(board,color);
+
+        // Шаг 2: Проверить, под шахом ли король
+        if (!KingIsUnderAttack(board, KingPos, color))
+        {
+            return false; // Если король не под шахом, мата нет
+        }
+
+        // Шаг 3: Проверить, может ли король сделать ход, чтобы выйти из шаха
+        var kingMoves = GetPossibleMoves(ref board, KingPos);
+        foreach (var move in kingMoves)
+        {
+            if (!SquareIsUnderAttack(ref board, move,color))
+            {
+                return false; // Если король может уйти из-под шаха, мата нет
+            }
+        }
+
+        // Шаг 4: Проверить, могут ли другие фигуры защитить короля
+        for (int x = 0; x < 8; x++)
+        {
+            for (int y = 0; y < 8; y++)
+            {
+                var figure = board[x][y];
+                if (figure != null && figure.Color == color)
+                {
+                    var possibleMoves = figure.GetPossibleMoves(ref board, (x, y));
+                    foreach (var move in possibleMoves)
+                    {
+                        // Делаем временный ход для проверки
+                        var tempBoard = (IFigure?[][])board.Clone();
+                        tempBoard[move.Item1][move.Item2] = figure;
+                        tempBoard[x][y] = null;
+
+                        // Если после этого хода король больше не под шахом, мата нет
+                        if (!KingIsUnderAttack(board, KingPos, color))
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+
+        // Если никакой ход не спасает короля от шаха, это мат
+        return true;
+    }
+
     public virtual (int, int) FindKing(IFigure?[][] board, char kingColor)
     {
         for (var column = 0; column < 8; column++) // находим союзного короля

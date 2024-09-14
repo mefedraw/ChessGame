@@ -173,6 +173,36 @@ public class King : Figure
 
         return (0, 0);
     }
+    
+    public override List<(int, int)> GetPossibleMoves(ref IFigure?[][] board, (int, int) currentPos)
+    {
+        List<(int, int)> possibleMoves = new List<(int, int)>();
+        int x = currentPos.Item1;
+        int y = currentPos.Item2;
+
+        // Король может двигаться на одну клетку в любом направлении
+        for (int i = -1; i <= 1; i++)
+        {
+            for (int j = -1; j <= 1; j++)
+            {
+                if (i == 0 && j == 0) continue; // Пропускаем текущую клетку
+                int newX = x + i;
+                int newY = y + j;
+                if (IsInBounds(newX, newY) && (board[newX][newY] == null || board[newX][newY].Color != this.Color))
+                {
+                    possibleMoves.Add((newX, newY));
+                }
+            }
+        }
+
+        return possibleMoves;
+    }
+    
+    private bool IsInBounds(int x, int y)
+    {
+        return x >= 0 && x < 8 && y >= 0 && y < 8;
+    }
+
 
     public bool KingDidMove { get; set; }
 
