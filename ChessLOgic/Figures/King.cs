@@ -30,8 +30,10 @@ public class King : Figure
             // Приводим к типу Rook, чтобы получить доступ к RookDidMove
             if (rook is Rook castedRook && !castedRook.RookDidMove)
             {
-                // Проверяем, что клетки между королем и ладьей свободны
-                if (board[0][5] == null && board[0][6] == null)
+                // Проверяем, что клетки между королем и ладьей свободны и они не под ударом
+                if (board[0][5] == null && board[0][6] == null &&
+                    !SquareIsUnderAttack(ref board, (0, 5), figure.Color) &&
+                    !SquareIsUnderAttack(ref board, (0, 6), figure.Color))
                 {
                     // Делаем рокировку: перемещаем короля и ладью
                     board[0][4] = null; // Король покидает исходную позицию
@@ -57,8 +59,11 @@ public class King : Figure
             // Приводим к типу Rook, чтобы получить доступ к RookDidMove
             if (rook is Rook castedRook && !castedRook.RookDidMove)
             {
-                // Проверяем, что клетки между королем и ладьей свободны
-                if (board[0][1] == null && board[0][2] == null && board[0][3] == null)
+                // Проверяем, что клетки между королем и ладьей свободны и они не под ударом
+                if (board[0][1] == null && board[0][2] == null && board[0][3] == null &&
+                    !SquareIsUnderAttack(ref board, (0, 1), figure.Color) &&
+                    !SquareIsUnderAttack(ref board, (0, 2), figure.Color) &&
+                    !SquareIsUnderAttack(ref board, (0, 3), figure.Color))
                 {
                     // Делаем рокировку: перемещаем короля и ладью
                     board[0][4] = null; // Король покидает исходную позицию
@@ -82,8 +87,10 @@ public class King : Figure
             // Приводим к типу Rook, чтобы получить доступ к RookDidMove
             if (rook is Rook castedRook && !castedRook.RookDidMove)
             {
-                // Проверяем, что клетки между королем и ладьей свободны
-                if (board[7][5] == null && board[7][6] == null)
+                // Проверяем, что клетки между королем и ладьей свободны и они не под ударом
+                if (board[7][5] == null && board[7][6] == null &&
+                    !SquareIsUnderAttack(ref board, (7, 5), figure.Color) &&
+                    !SquareIsUnderAttack(ref board, (7, 6), figure.Color))
                 {
                     // Делаем рокировку: перемещаем короля и ладью
                     board[7][4] = null; // Король покидает исходную позицию
@@ -108,8 +115,11 @@ public class King : Figure
             // Приводим к типу Rook, чтобы получить доступ к RookDidMove
             if (rook is Rook castedRook && !castedRook.RookDidMove)
             {
-                // Проверяем, что клетки между королем и ладьей свободны
-                if (board[7][1] == null && board[7][2] == null && board[7][3] == null)
+                // Проверяем, что клетки между королем и ладьей свободны и они не под ударом
+                if (board[7][1] == null && board[7][2] == null && board[7][3] == null &&
+                    !SquareIsUnderAttack(ref board, (7, 1), figure.Color) &&
+                    !SquareIsUnderAttack(ref board, (7, 2), figure.Color) &&
+                    !SquareIsUnderAttack(ref board, (7, 3), figure.Color))
                 {
                     // Делаем рокировку: перемещаем короля и ладью
                     board[7][4] = null; // Король покидает исходную позицию
@@ -137,14 +147,14 @@ public class King : Figure
                     board[startX][startY] = null;
                     board[endX][endY] = figure;
                     KingDidMove = true;
-                    return true;   
+                    return true;
                 }
             }
         }
 
         return false; // Любое другое движение недопустимо для короля
     }
-    
+
     public override (int, int) FindKing(IFigure?[][] board, char kingColor)
     {
         for (var column = 0; column < 8; column++) // находим союзного короля
@@ -165,7 +175,7 @@ public class King : Figure
     }
 
     public bool KingDidMove { get; set; }
-    
+
     public King(char color) : base(color, FigureType.King)
     {
     }
