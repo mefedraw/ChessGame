@@ -174,6 +174,28 @@ public class King : Figure
         return (0, 0);
     }
 
+    public override List<(int, int)> GetPossibleMoves(ref IFigure?[][] board, (int, int) currentPos)
+    {
+        List<(int, int)> possibleMoves = new List<(int, int)>();
+        int x = currentPos.Item1;
+        int y = currentPos.Item2;
+        var king = board[x][y];
+
+        for (int i = 0; i < 8; i++)
+        {
+            for (int j = 0; j < 8; j++)
+            {
+                if ((i, j) != currentPos && PossibleMove(ref board, currentPos, (i, j)))
+                {
+                    PossibleMove(ref board, (i, j), currentPos);
+                    possibleMoves.Add((i, j));
+                }
+            }
+        }
+
+        return possibleMoves;
+    }
+
     public bool KingDidMove { get; set; }
 
     public King(char color) : base(color, FigureType.King)

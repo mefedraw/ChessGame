@@ -63,7 +63,8 @@ server.Start(ws =>
                 if (ws == currentSession.Player1.PlayerConnection &&
                     ((currentSession.Player1.Color == 'w' && currentSessionWhitesTurn) ||
                      (currentSession.Player1.Color == 'b' && !currentSessionWhitesTurn)))
-                    // user can move pieces only in his turn
+                    // user can move pieces only in his turn 
+                    // ходит игрок 1
                 {
                     if (currentSession.BotGame)
                     {
@@ -78,13 +79,23 @@ server.Start(ws =>
                     else
                     {
                         currentSession.ApplyMove(currentMove, currentSession.Player1);
+                        if (currentSession.BoardState.Checkmate == currentSession.Player2.Color)
+                        {
+                            currentSession.Player2.PlayerConnection.Send("LOGS:Вы проиграли, вам поставили мат :(");
+                            currentSession.Player1.PlayerConnection.Send("LOGS:Вы победили, поставив мат!");
+                        }
                     }
                 }
                 else if (ws == currentSession.Player2.PlayerConnection &&
                          ((currentSession.Player2.Color == 'b' && !currentSessionWhitesTurn) ||
                           (currentSession.Player2.Color == 'w' && currentSessionWhitesTurn)))
-                {
+                { // ходит игрок 2
                     currentSession.ApplyMove(currentMove, currentSession.Player2);
+                    if (currentSession.BoardState.Checkmate == currentSession.Player1.Color)
+                    {
+                        currentSession.Player1.PlayerConnection.Send("LOGS:Вы проиграли, вам поставили мат :(");
+                        currentSession.Player2.PlayerConnection.Send("LOGS:Вы победили, поставив мат!");
+                    }
                 }
             }
         }

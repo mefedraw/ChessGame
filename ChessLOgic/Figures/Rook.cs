@@ -63,13 +63,7 @@ public class Rook : Figure
 
         return false; // Если в конечной клетке фигура того же цвета, ход невозможен
     }
-
-    public override bool KingIsUnderAttack(IFigure?[][] board, (int x, int y) position, char kingColor)
-    {
-        throw new NotImplementedException();
-    }
-
-
+    
     public bool RookDidMove { get; set; }
 
     public Rook(char color) : base(color, FigureType.Rook)
