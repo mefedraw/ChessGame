@@ -62,54 +62,6 @@ public class Bishop : Figure
 
         return false; // Если в конечной клетке фигура того же цвета, ход невозможен
     }
-    
-    public override List<(int, int)> GetPossibleMoves(ref IFigure?[][] board, (int, int) currentPos)
-    {
-        List<(int, int)> possibleMoves = new List<(int, int)>();
-        int x = currentPos.Item1;
-        int y = currentPos.Item2;
-
-        // Вправо-вверх
-        for (int i = 1; x + i < 8 && y + i < 8; i++)
-        {
-            if (AddMoveIfValid(ref board, possibleMoves, x + i, y + i)) break;
-        }
-
-        // Влево-вверх
-        for (int i = 1; x - i >= 0 && y + i < 8; i++)
-        {
-            if (AddMoveIfValid(ref board, possibleMoves, x - i, y + i)) break;
-        }
-
-        // Вправо-вниз
-        for (int i = 1; x + i < 8 && y - i >= 0; i++)
-        {
-            if (AddMoveIfValid(ref board, possibleMoves, x + i, y - i)) break;
-        }
-
-        // Влево-вниз
-        for (int i = 1; x - i >= 0 && y - i >= 0; i++)
-        {
-            if (AddMoveIfValid(ref board, possibleMoves, x - i, y - i)) break;
-        }
-
-        return possibleMoves;
-    }
-
-    private bool AddMoveIfValid(ref IFigure?[][] board, List<(int, int)> moves, int x, int y)
-    {
-        if (board[x][y] == null)
-        {
-            moves.Add((x, y));
-            return false; // Продолжаем движение
-        }
-        else if (board[x][y].Color != this.Color)
-        {
-            moves.Add((x, y)); // Вражеская фигура, добавляем и прекращаем движение
-            return true;
-        }
-        return true; // Своя фигура, прекращаем движение
-    }
 
     public Bishop(char color) : base(color, FigureType.Bishop)
     {

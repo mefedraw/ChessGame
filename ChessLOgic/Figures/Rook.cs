@@ -64,55 +64,6 @@ public class Rook : Figure
         return false; // Если в конечной клетке фигура того же цвета, ход невозможен
     }
     
-    public override List<(int, int)> GetPossibleMoves(ref IFigure?[][] board, (int, int) currentPos)
-    {
-        List<(int, int)> possibleMoves = new List<(int, int)>();
-        int x = currentPos.Item1;
-        int y = currentPos.Item2;
-
-        // Двигаемся вверх
-        for (int i = x + 1; i < 8; i++)
-        {
-            if (AddMoveIfValid(ref board, possibleMoves, i, y)) break;
-        }
-
-        // Двигаемся вниз
-        for (int i = x - 1; i >= 0; i--)
-        {
-            if (AddMoveIfValid(ref board, possibleMoves, i, y)) break;
-        }
-
-        // Двигаемся вправо
-        for (int i = y + 1; i < 8; i++)
-        {
-            if (AddMoveIfValid(ref board, possibleMoves, x, i)) break;
-        }
-
-        // Двигаемся влево
-        for (int i = y - 1; i >= 0; i--)
-        {
-            if (AddMoveIfValid(ref board, possibleMoves, x, i)) break;
-        }
-
-        return possibleMoves;
-    }
-
-    private bool AddMoveIfValid(ref IFigure?[][] board, List<(int, int)> moves, int x, int y)
-    {
-        if (board[x][y] == null)
-        {
-            moves.Add((x, y));
-            return false; // Продолжаем движение
-        }
-        else if (board[x][y].Color != this.Color)
-        {
-            moves.Add((x, y)); // Вражеская фигура, добавляем и прекращаем движение
-            return true;
-        }
-        return true; // Своя фигура, прекращаем движение
-    }
-
-
     public bool RookDidMove { get; set; }
 
     public Rook(char color) : base(color, FigureType.Rook)

@@ -90,7 +90,7 @@ public class Game
             IFigure? tempfigure = Board[moveStartCoords.Item1][moveStartCoords.Item2];
             if (figure.PossibleMove(ref Board, moveStartCoords, moveEndCoords))
             {
-                if (Board[moveStartCoords.Item1][moveStartCoords.Item2]
+                if (Board[moveEndCoords.Item1][moveEndCoords.Item2]
                     .IsCheckmate(ref Board, figure.Color == 'w' ? 'b' : 'w'))
                 {
                     Checkmate = figure.Color == 'w' ? 'b' : 'w';
