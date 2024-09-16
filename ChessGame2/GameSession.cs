@@ -15,26 +15,14 @@ public class GameSession
         var random = new Random();
         if (random.Next(2) == 0)
         {
-            Player1.Color = 'w';
-            Player2.Color = 'b';
+            Player1.Color = 'w'; // White for Player1
+            Player2.Color = 'b'; // Black for Player2
         }
         else
         {
-            Player1.Color = 'b';
-            Player2.Color = 'w';
+            Player1.Color = 'b'; // Black for Player1
+            Player2.Color = 'w'; // White for Player2
         }
-    }
-
-    public GameSession(WsChessClient player1, WsChessClient player2, Game boardState)
-    {
-        // для тестов 
-        Player1 = player1;
-        Player2 = player2;
-        BoardState = boardState;
-        BotGame = false;
-
-        Player1.Color = 'w';
-        Player2.Color = 'b';
     }
 
     public GameSession(WsChessClient player1, Game boardState, bool botGame)
@@ -73,17 +61,26 @@ public class GameSession
 
                 string turnString = BoardState.WhitesTurn ? "белых" : "черных";
 
-                Player1.PlayerConnection.Send($"LOGS:Сейчас ход {turnString}" + '\n' +
-                                              $"Вы играете {colorMessage} фигурами");
+                if (Player1.Color == 'b')
+                {
+                    Player1.PlayerConnection.Send($"FEN:{GetBoardStateBlack()}:{Player1.Color}");
+                }
 
-                Player1.PlayerConnection.Send($"FEN:{GetBoardState()}:{Player1.Color}");
+                else 
+                {
+                    Player1.PlayerConnection.Send($"FEN:{GetBoardStateWhite()}:{Player1.Color}");
+                }
+
                 if (!BotGame)
                 {
-                    colorMessage = Player2.Color == 'w' ? "белыми" : "черными";
-                    Player2.PlayerConnection.Send($"LOGS:Сейчас ход {turnString}" + '\n' +
-                                                  $"Вы играете {colorMessage} фигурами");
-
-                    Player2.PlayerConnection.Send($"FEN:{GetBoardState()}:{Player2.Color}");
+                    if (Player2.Color == 'b')
+                    {
+                        Player2.PlayerConnection.Send($"FEN:{GetBoardStateBlack()}:{Player2.Color}");
+                    }
+                    else
+                    {
+                        Player2.PlayerConnection.Send($"FEN:{GetBoardStateWhite()}:{Player2.Color}");
+                    }
                 }
             }
         }
@@ -100,13 +97,18 @@ public class GameSession
 
         var successfulMove = BoardState.DoMove(move);
         if (successfulMove)
-        { 
-            Player1.PlayerConnection.Send($"FEN:{GetBoardState()}:{Player1.Color}");
+        {
+            Player1.PlayerConnection.Send($"FEN:{GetBoardStateWhite()}:{Player1.Color}");
         }
     }
 
-    private string GetBoardState() 
+    private string GetBoardStateWhite()
     {
         return BoardState.GetBoardAsFEN();
+    }
+
+    private string GetBoardStateBlack()
+    {
+        return BoardState.GetBoardAsFENforBlack();
     }
 }

@@ -506,11 +506,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\fyodo.DESKTOP-9A67S1J\\RiderProjects\\ChessGame2\\ChessGame2\\ChessGame2.csproj",
+      "projectUniqueName": "C:\\Users\\fyodo.DESKTOP-9A67S1J\\RiderProjects\\ChessGameServer\\ChessGame2\\ChessGame2.csproj",
       "projectName": "ChessGame2",
-      "projectPath": "C:\\Users\\fyodo.DESKTOP-9A67S1J\\RiderProjects\\ChessGame2\\ChessGame2\\ChessGame2.csproj",
+      "projectPath": "C:\\Users\\fyodo.DESKTOP-9A67S1J\\RiderProjects\\ChessGameServer\\ChessGame2\\ChessGame2.csproj",
       "packagesPath": "C:\\Users\\fyodo.DESKTOP-9A67S1J\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\fyodo.DESKTOP-9A67S1J\\RiderProjects\\ChessGame2\\ChessGame2\\obj\\",
+      "outputPath": "C:\\Users\\fyodo.DESKTOP-9A67S1J\\RiderProjects\\ChessGameServer\\ChessGame2\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\fyodo.DESKTOP-9A67S1J\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -527,8 +527,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\fyodo.DESKTOP-9A67S1J\\RiderProjects\\ChessGame2\\ChessLOgic\\ChessLOgic.csproj": {
-              "projectPath": "C:\\Users\\fyodo.DESKTOP-9A67S1J\\RiderProjects\\ChessGame2\\ChessLOgic\\ChessLOgic.csproj"
+            "C:\\Users\\fyodo.DESKTOP-9A67S1J\\RiderProjects\\ChessGameServer\\ChessLOgic\\ChessLOgic.csproj": {
+              "projectPath": "C:\\Users\\fyodo.DESKTOP-9A67S1J\\RiderProjects\\ChessGameServer\\ChessLOgic\\ChessLOgic.csproj"
             }
           }
         }

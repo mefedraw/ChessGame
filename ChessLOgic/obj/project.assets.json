@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\fyodo.DESKTOP-9A67S1J\\RiderProjects\\ChessGame2\\ChessLOgic\\ChessLOgic.csproj",
+      "projectUniqueName": "C:\\Users\\fyodo.DESKTOP-9A67S1J\\RiderProjects\\ChessGameServer\\ChessLOgic\\ChessLOgic.csproj",
       "projectName": "ChessLOgic",
-      "projectPath": "C:\\Users\\fyodo.DESKTOP-9A67S1J\\RiderProjects\\ChessGame2\\ChessLOgic\\ChessLOgic.csproj",
+      "projectPath": "C:\\Users\\fyodo.DESKTOP-9A67S1J\\RiderProjects\\ChessGameServer\\ChessLOgic\\ChessLOgic.csproj",
       "packagesPath": "C:\\Users\\fyodo.DESKTOP-9A67S1J\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\fyodo.DESKTOP-9A67S1J\\RiderProjects\\ChessGame2\\ChessLOgic\\obj\\",
+      "outputPath": "C:\\Users\\fyodo.DESKTOP-9A67S1J\\RiderProjects\\ChessGameServer\\ChessLOgic\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\fyodo.DESKTOP-9A67S1J\\AppData\\Roaming\\NuGet\\NuGet.Config",

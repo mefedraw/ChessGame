@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "t/Y8+wq7VELnXPwtqDghPUQA/74B4vZ0/OAabBGr1a3DDgi7Hl75o5ZfttFyJhk2CC3Xuq7WPm2mPlckenMijg==",
+  "dgSpecHash": "3TpmLENBn+01fmaZJmg7TrEgXoTeEBmjfUOKFPSt5xzKxwUrMjAA1How+ueecYYCf9J7aM9F1VgGbE2mq9CboA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\fyodo.DESKTOP-9A67S1J\\RiderProjects\\ChessGame2\\ChessGame2.Tests\\ChessGame2.Tests.csproj",
+  "projectFilePath": "C:\\Users\\fyodo.DESKTOP-9A67S1J\\RiderProjects\\ChessGameServer\\ChessGame2.Tests\\ChessGame2.Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\fyodo.DESKTOP-9A67S1J\\.nuget\\packages\\castle.core\\5.1.1\\castle.core.5.1.1.nupkg.sha512",
     "C:\\Users\\fyodo.DESKTOP-9A67S1J\\.nuget\\packages\\coverlet.collector\\6.0.0\\coverlet.collector.6.0.0.nupkg.sha512",

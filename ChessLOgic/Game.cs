@@ -184,6 +184,46 @@ public class Game
 
         return sb.ToString();
     }
+    
+    public string GetBoardAsFENforBlack()
+    {
+        var sb = new StringBuilder();
+
+        for (int x = 0; x < 8; x++) // от 8-й линии к 1-й
+        {
+            int emptySquares = 0;
+
+            for (int y = 7; y >=0; y--)
+            {
+                if (Board[x][y] == null)
+                {
+                    emptySquares++; // увеличиваем счетчик пустых клеток
+                }
+                else
+                {
+                    if (emptySquares > 0)
+                    {
+                        sb.Append(emptySquares); // добавляем число пустых клеток
+                        emptySquares = 0;
+                    }
+
+                    sb.Append(GetFigureSymbol(Board[x][y])); // добавляем символ фигуры
+                }
+            }
+
+            if (emptySquares > 0)
+            {
+                sb.Append(emptySquares); // добавляем оставшиеся пустые клетки в строке
+            }
+
+            if (x < 7)
+            {
+                sb.Append('/'); // разделитель между строками доски
+            }
+        }
+
+        return sb.ToString();
+    }
 
 public string GetBoardAsFullFEN()
 {
