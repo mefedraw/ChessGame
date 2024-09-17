@@ -17,9 +17,9 @@ server.Start(ws =>
 
     ws.OnMessage = async message =>
     {
-        if (message.Contains("challenge"))
+        if (message.Contains("connect"))
         {
-            var gameId = message[10..];
+            var gameId = message[8..];
             if (!wsConnectionsQueue.ContainsKey(gameId)) // no session with such ID yet
             {
                 wsConnectionsQueue[gameId] = ws; // player1 init game
