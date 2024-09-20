@@ -3,7 +3,7 @@ using ChessGame2;
 using Fleck;
 using ChessLogic;
 
-var server = new WebSocketServer("ws://0.0.0.0:8181");
+var server = new WebSocketServer("ws://46.148.228.145   :8181"); // 192.168.0.113
 
 var wsConnections = new List<IWebSocketConnection>();
 

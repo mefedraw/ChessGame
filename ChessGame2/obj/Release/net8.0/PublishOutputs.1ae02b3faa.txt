@@ -1,0 +1,15 @@
+C:\Users\fyodo.DESKTOP-9A67S1J\RiderProjects\ChessGameServer\ChessGame2\bin\Release\net8.0\publish\ChessGame2.exe
+C:\Users\fyodo.DESKTOP-9A67S1J\RiderProjects\ChessGameServer\ChessGame2\bin\Release\net8.0\publish\appsettings.Development.json
+C:\Users\fyodo.DESKTOP-9A67S1J\RiderProjects\ChessGameServer\ChessGame2\bin\Release\net8.0\publish\appsettings.json
+C:\Users\fyodo.DESKTOP-9A67S1J\RiderProjects\ChessGameServer\ChessGame2\bin\Release\net8.0\publish\ChessGame2.dll
+C:\Users\fyodo.DESKTOP-9A67S1J\RiderProjects\ChessGameServer\ChessGame2\bin\Release\net8.0\publish\ChessGame2.deps.json
+C:\Users\fyodo.DESKTOP-9A67S1J\RiderProjects\ChessGameServer\ChessGame2\bin\Release\net8.0\publish\ChessGame2.runtimeconfig.json
+C:\Users\fyodo.DESKTOP-9A67S1J\RiderProjects\ChessGameServer\ChessGame2\bin\Release\net8.0\publish\ChessGame2.pdb
+C:\Users\fyodo.DESKTOP-9A67S1J\RiderProjects\ChessGameServer\ChessGame2\bin\Release\net8.0\publish\Fleck.dll
+C:\Users\fyodo.DESKTOP-9A67S1J\RiderProjects\ChessGameServer\ChessGame2\bin\Release\net8.0\publish\Microsoft.AspNetCore.OpenApi.dll
+C:\Users\fyodo.DESKTOP-9A67S1J\RiderProjects\ChessGameServer\ChessGame2\bin\Release\net8.0\publish\Microsoft.OpenApi.dll
+C:\Users\fyodo.DESKTOP-9A67S1J\RiderProjects\ChessGameServer\ChessGame2\bin\Release\net8.0\publish\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\fyodo.DESKTOP-9A67S1J\RiderProjects\ChessGameServer\ChessGame2\bin\Release\net8.0\publish\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\fyodo.DESKTOP-9A67S1J\RiderProjects\ChessGameServer\ChessGame2\bin\Release\net8.0\publish\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\fyodo.DESKTOP-9A67S1J\RiderProjects\ChessGameServer\ChessGame2\bin\Release\net8.0\publish\ChessLOgic.dll
+C:\Users\fyodo.DESKTOP-9A67S1J\RiderProjects\ChessGameServer\ChessGame2\bin\Release\net8.0\publish\ChessLOgic.pdb

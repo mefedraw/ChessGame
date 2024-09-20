@@ -1,0 +1,10 @@
+﻿version: "3.4"
+
+services:
+  chessgame2:
+    image: chessgame2
+    build:
+      context: .
+      dockerfile: ChessGame2/Dockerfile
+    ports:
+      - "5000:80"
